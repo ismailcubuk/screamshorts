@@ -21,14 +21,14 @@ export default function Test() {
 
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVideoData((prevState) => ({
       ...prevState,
       videoUrl: event.target.value,
     }));
   };
 
-  const handleSubmit = async (event) => {
+const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const videoId = getVideoId(videoData.videoUrl);
 
@@ -40,7 +40,7 @@ export default function Test() {
       }));
 
       try {
-        const data = await fetchVideoData(videoId, apiKey);
+        const data = await fetchVideoData(videoId, apiKey!);
         if (data.items && data.items.length > 0) {
           const videoDuration = data.items[0].contentDetails.duration;
           const rawViewCount = data.items[0].statistics.viewCount;
@@ -64,6 +64,7 @@ export default function Test() {
             loading: false,
           }));
         }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
         setVideoData((prevState) => ({
           ...prevState,
@@ -98,7 +99,10 @@ export default function Test() {
           className="border p-2 w-full"
           placeholder="YouTube video linkini buraya yapıştırın"
         />
-        <button type="submit" className="mt-2 bg-blue-500 text-white p-2 w-full">
+        <button
+          type="submit"
+          className="mt-2 bg-blue-500 text-white p-2 w-full"
+        >
           Başlık Al
         </button>
       </form>
