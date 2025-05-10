@@ -1,9 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useVideoContext } from "@/app/context/VideoContext";
 
 export default function Home() {
+    const { videoData } = useVideoContext();
+
   return (
     <div>
+      <div>
+        {videoData.videoId}
+        {videoData.videoThumbnails}
+        {videoData.videoUrl}
+      </div>
       <div className=" flex flex-col">
         <Link href="/admin">
           <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
